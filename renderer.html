@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="lib/vuemin.js">
+    </script>
+    <link rel="stylesheet" type="text/css" href="rendererStyle.css">
+  </head>
+  <body>
+    <div id="app" :class = "{'app':true}">
+  <p>{{ message }}</p>
+  <canvas id="canvas" :width="canvasWidth" :height="canvasHeight" :class = "{'canvas':true}"></canvas>
+<input type="file" id="file-input" >
+<div id="file-content"></div>
+</div>
+
+  </body>
+     <script src="script/Device.js"> console.log(1);</script>
+    <script src="script/SwapChain.js"></script>
+    <script src="script/Math.js"></script>
+    <script src="script/Camera.js"></script>
+    <script src="script/Vertex.js"></script>
+    <script src="script/Model.js"></script>
+  <script>
+  var vue = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue.js!',
+      canvasWidth: Math.width,
+      canvasHeight: Math.height
+    }
+  })
+  </script>
+   
+    
+  <script Access-Control-Allow-Origin: *>
+      
+      var camera = new Camera(vue._data.canvasWidth/ vue._data.canvasHeight);
+      var model = new Model("src/tesetobj.obj");
+      var verties = [new Vertex(-0.5,0.5,-0.5,1,0,0),
+                     new Vertex(0.5,0.5,-0.5,1,0,0),
+                     new Vertex(-0.5,-0.5,-0.5,1,0,0),
+                     new Vertex(0.5,-0.5,-0.5,1,0,0),
+                     new Vertex(-0.5,0.5,0.5,0,1,0),
+                     new Vertex(0.5,0.5,0.5,0,0,1),
+                     new Vertex(0.5,-0.5,0.5,1,0,0),
+                    ];
+     
+      var indexBuffer = [0,1,2,
+                   1,2,3,
+                   0,4,5,
+                   0,5,1,
+                   3,1,5,
+                   3,5,6,
+                  ];
+     
+      var constantBuffer = {
+          camera: camera,
+          localOrigin: new Vector3(1.0, 0, 0),
+      }
+      var frame = 1000/30;
+      var swapChain = new SwapChain();
+      var device = swapChain.createDevice();
+      var deviceContext = swapChain.createContext();
+      var vertexSahder = device.createVertexShader();
+      var pixelSahder = device.createPixelShader();
+      
+      vertexSahder.constantBuffer = constantBuffer;
+      var frameBuffer = device.CreateBuffer(vue._data.canvasWidth * vue._data.canvasHeight * 4);
+      swapChain.getBuffer(frameBuffer,vue._data.canvasWidth,vue._data.canvasHeight);
+      var zBuffer = device.CreateBuffer(vue._data.canvasWidth * vue._data.canvasHeight, "zBuffer");
+      
+      var renderTargetView = device.createRenderTargetView(frameBuffer);
+      var viewport = {
+          startWidth:0,
+          endWidth:vue._data.canvasWidth,
+          startHeight:0,
+          endHeight:vue._data.canvasHeight,
+          canvasWidth: vue._data.canvasWidth,
+          canvasHeight: vue._data.canvasHeight,
+      }
+      
+      deviceContext.setViewport(viewport);
+      deviceContext.setRenderTargetView(renderTargetView);
+      deviceContext.setVertexShader(vertexSahder);
+      deviceContext.setPixelShader(pixelSahder);
+      deviceContext.setZBuffer(zBuffer);
+      var outputVerties = [];
+      var rotationRadian = 0;
+      setInterval(function(){
+         deviceContext.clear();  
+          //deviceContext.drawLine(screenCoordate, screenCoordate2);
+         // rotationRadian+= 0.01;
+          constantBuffer.localOrigin = translationMatrix(new Vector3(0, 1, 0)).timeVector3OutV3(constantBuffer.localOrigin);
+         // console.log(constantBuffer.localOrigin);
+          for (var i = 0; i < verties.length; i++){
+              var newPosition = rotateMatrixY(0.03).timeVector3OutV3(verties[i].position);
+              verties[i].position = new Vector3(newPosition.x, newPosition.y, newPosition.z);
+          }
+          
+          for (var i = 0; i < indexBuffer.length; i++)
+              {
+                  var index = indexBuffer[i];
+                  
+                  
+                  var vertexOut = vertexSahder.vert(verties[index]);
+                  
+                  
+                  outputVerties[i] = vertexOut;
+                  
+              }
+           
+          //deviceContext.drawTrianglesLineMode(outputVerties);
+          deviceContext.drawTrianglesFace(outputVerties);
+         //camera.cameraPosition = camera.cameraPosition.add(new Vector3(0.01,0.01,0));
+          //console.log(vertexSahder.camera.cameraPosition);
+        swapChain.present();
+    
+      },
+
+    frame);
+
+
+  </script>
+</html>
