@@ -39,24 +39,7 @@
       var camera = new Camera(vue._data.canvasWidth/ vue._data.canvasHeight);
       var tstring = "v -1.430593 -1.430593 1.430593\nv 1.430593 -1.430593 1.430593\nf 7/13/21 1/1/22 11/17/23\nf 11/17/23 1/1/22 10/16/24";
       var ts = tstring.split(/\n|\rn|\nr|\r/);
-       for(var i = 0; i < ts.length;i++){
-                    if (ts[i][0] == "v")
-                        {
-                            var singleVertexSplit = ts[i].split(" ");
-                            var tempVertex = new Vertex(singleVertexSplit[1], singleVertexSplit[2], singleVertexSplit[3], 0,0,0);
-                            
-                        }
-                    else if (ts[i][0] == "f")
-                        {
-                            var singleVertexSplit = ts[i].split(" ");
-                            for (var j = 1; j < singleVertexSplit.length; j++){
-                                var indexSplit = singleVertexSplit[j].split('/');
-                                console.log(indexSplit);
-                            }
-                            
-                        }
-                }
-      console.log(ts);
+       
       
       var model = new Model("src/tesetobj.obj");
       model.readModelFromSrc("src/tesetobj.obj");
