@@ -24,7 +24,8 @@ Model.prototype.readModelFromSrc = function (src){
                         {
                             var singleVertexSplit = textToArray[i].split(" ");
                             var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,0);
-                            this.verties.push(tempVertex);
+                            console.log(verties);
+                            verties.push(tempVertex);
                         }
                     else if (ts[i][0] == "f")
                         {
@@ -37,7 +38,7 @@ Model.prototype.readModelFromSrc = function (src){
                             
                         }
                 }
-                console.log(textToArray); 
+                
             }
         }
     }
