@@ -2,7 +2,7 @@ var Model = function(src){
     
     this.verties = [];
     this.indexBuffer = [];
-    this.readModelFromSrc(src);
+    //this.readModelFromSrc(src);
 }
 
 Model.prototype.readModelFromSrc = function (src){
@@ -11,28 +11,36 @@ Model.prototype.readModelFromSrc = function (src){
     
     rawFile.onreadystatechange = function ()
     {
-        if(rawFile.readyState === 4) // readyState = 4: request finished and response is ready
+        if(rawFile.readyState === 4) 
         {
             
-            if(rawFile.status === 200 || rawFile.status === 0) // status 200: "OK"
+            if(rawFile.status === 200 || rawFile.status === 0) 
             {
                 
                 var allText = rawFile.responseText; 
                 var textToArray = allText.split(/\n|\rn|\nr|\r/);
                 for(var i = 0; i < textToArray.length;i++){
-                    if (textToArray[i][0] == "v")
+                    if (textToArray[i][0] == "vt")
+                        {
+                            
+                        }
+                    else if (textToArray[i][0] == "vn")
+                        {
+                             
+                        }
+                    else if (textToArray[i][0] == "v")
                         {
                             var singleVertexSplit = textToArray[i].split(" ");
                             var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,0);
-                            console.log(verties);
-                            verties.push(tempVertex);
+                            console.log(this.verties);
+                            this.verties.push(tempVertex);
                         }
                     else if (textToArray[i][0] == "f")
                         {
                             var singleVertexSplit = textToArray[i].split(" ");
                             for (var j = 1; j < singleVertexSplit.length; j++){
                                 var indexSplit = singleVertexSplit[j].split('/');
-                                indexBuffer.push(parseInt(indexSplit[0]) - 1);
+                                this.indexBuffer.push(parseInt(indexSplit[0]) - 1);
                                 //console.log(indexSplit);
                             }
                             
@@ -42,7 +50,7 @@ Model.prototype.readModelFromSrc = function (src){
             }
         }
     }
-    rawFile.send(); //Sends the request to the server Used for GET requests with param null
+    rawFile.send(); 
 }
 
 
