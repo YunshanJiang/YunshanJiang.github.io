@@ -36,14 +36,11 @@
     
   <script>
       
-      var camera = new Camera(vue._data.canvasWidth/ vue._data.canvasHeight);
-      var tstring = "v -1.430593 -1.430593 1.430593\nv 1.430593 -1.430593 1.430593\nf 7/13/21 1/1/22 11/17/23\nf 11/17/23 1/1/22 10/16/24";
-      var ts = tstring.split(/\n|\rn|\nr|\r/);
-       
-      
-      var model = new Model("src/tesetobj.obj");
-      model.readModelFromSrc("src/tesetobj.obj");
-      
+      var camera = new Camera(vue._data.canvasWidth/ vue._data.canvasHeight);  
+      var model = new Model();
+      model.readModelFromSrc("src/low-poly-fox-by-pixelmannen.obj");
+      model.scale(new Vector3(0.01,0.01,0.01));
+      model.translate(new Vector3(0,-2,0));
       var verties = [new Vertex(-0.5,0.5,-0.5,1,0,0),
                      new Vertex(0.5,0.5,-0.5,1,0,0),
                      new Vertex(-0.5,-0.5,-0.5,1,0,0),
@@ -94,17 +91,16 @@
       deviceContext.setZBuffer(zBuffer);
       var outputVerties = [];
       var rotationRadian = 0;
+       constantBuffer.localOrigin = translationMatrix(new Vector3(0, 1, 0)).timeVector3OutV3(constantBuffer.localOrigin);
+      var rotationVector = new Vector3(0,0.009,0);
       setInterval(function(){
          deviceContext.clear();  
+          
           //deviceContext.drawLine(screenCoordate, screenCoordate2);
          // rotationRadian+= 0.01;
-          constantBuffer.localOrigin = translationMatrix(new Vector3(0, 1, 0)).timeVector3OutV3(constantBuffer.localOrigin);
+          model.rotate(rotationVector);
          // console.log(constantBuffer.localOrigin);
-          for (var i = 0; i < model.verties.length; i++){
-              var newPosition = rotateMatrixY(0.03).timeVector3OutV3(model.verties[i].position);
-              model.verties[i].position = new Vector3(newPosition.x, newPosition.y, newPosition.z);
-          }
-          
+         
           for (var i = 0; i < model.indexBuffer.length; i++)
               {
                   var index = model.indexBuffer[i];
@@ -117,7 +113,7 @@
                   
               }
            
-          //deviceContext.drawTrianglesLineMode(outputVerties);
+         // deviceContext.drawTrianglesLineMode(outputVerties);
           deviceContext.drawTrianglesFace(outputVerties);
          //camera.cameraPosition = camera.cameraPosition.add(new Vector3(0.01,0.01,0));
           //console.log(vertexSahder.camera.cameraPosition);

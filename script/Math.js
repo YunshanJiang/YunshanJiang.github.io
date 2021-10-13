@@ -249,11 +249,12 @@ function rotateMatrixX(radians){
 
 function translationMatrix(vector){
     var translationList = 
-    [0, 0, 0, vector.x,
-     0, 0, 0, vector.y,
-     0, 0, 0, vector.z,
+    [1, 0, 0, vector.x,
+     0, 1, 0, vector.y,
+     0, 0, 1, vector.z,
      0, 0, 0, 1,
     ];
+    
     return new Matrix4x4(translationList);
 }
 

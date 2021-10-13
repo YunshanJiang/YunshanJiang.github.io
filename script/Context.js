@@ -50,7 +50,7 @@ var Context = function Context(){
       for (var i = 0; i < steps; i++)
           {
               var startBufferIndex = Math.round(startY) * viewport.canvasWidth * 4;
-              renderTargetView[startBufferIndex + Math.round(startX) * 4] = 0;
+              renderTargetView[startBufferIndex + Math.round(startX) * 4] = 255;
              renderTargetView[startBufferIndex + Math.round(startX) * 4 + 1] = 255;
              renderTargetView[startBufferIndex + Math.round(startX) * 4 + 2] = 0;
              renderTargetView[startBufferIndex + Math.round(startX) * 4 + 3] = 255;
@@ -204,7 +204,11 @@ var Context = function Context(){
                       
               var pixelColor = this.pixelShader.pixel(new VertexOut(startX, startY,startZ,startColor.x,startColor.y,startColor.z));
               var startBufferIndex = startY * viewport.canvasWidth * 4;
-                     
+                     // var color = 0;
+                    // if (renderTargetView[startBufferIndex + startX * 4 + 2]!= 0)
+                        // {
+                            // color = 255;
+                        // }
               renderTargetView[startBufferIndex + startX * 4] =  Math.round(pixelColor.rgb.x);
              renderTargetView[startBufferIndex + startX * 4 + 1] = Math.round(pixelColor.rgb.y);
              renderTargetView[startBufferIndex + startX * 4 + 2] = Math.round(pixelColor.rgb.z);
