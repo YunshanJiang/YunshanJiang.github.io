@@ -19,18 +19,20 @@ Model.prototype.readModelFromSrc = function (src){
                 
                 var allText = rawFile.responseText; 
                 var textToArray = allText.split(/\n|\rn|\nr|\r/);
+                
                 for(var i = 0; i < textToArray.length;i++){
-                    if (textToArray[i][0] == "vt")
+                    var singleVertexSplit = textToArray[i].split(" ");
+                    if (singleVertexSplit[0] == "vt")
                         {
                             
                         }
-                    else if (textToArray[i][0] == "vn")
+                    else if (singleVertexSplit[0] == "vn")
                         {
                              
                         }
-                    else if (textToArray[i][0] == "v")
+                    else if (singleVertexSplit[0] == "v")
                         {
-                            var singleVertexSplit = textToArray[i].split(" ");
+                            
                             var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,0);
                             console.log(this.verties);
                             this.verties.push(tempVertex);
