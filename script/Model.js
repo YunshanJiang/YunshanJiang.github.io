@@ -1,7 +1,7 @@
 var Model = function(src){
     
-    this.verties = null;
-    this.Index = null;
+    this.verties = [];
+    this.indexBuffer = [];
     this.readModelFromSrc(src);
 }
 
@@ -17,8 +17,27 @@ Model.prototype.readModelFromSrc = function (src){
             if(rawFile.status === 200 || rawFile.status === 0) // status 200: "OK"
             {
                 
-                var allText = rawFile.responseText; //  Returns the response data as a string
-                console.log(allText); // display text on the console
+                var allText = rawFile.responseText; 
+                var textToArray = allText.split(/\n|\rn|\nr|\r/);
+                for(var i = 0; i < textToArray.length;i++){
+                    if (ts[i][0] == "v")
+                        {
+                            var singleVertexSplit = textToArray[i].split(" ");
+                            var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,0);
+                            this.verties.push(tempVertex);
+                        }
+                    else if (ts[i][0] == "f")
+                        {
+                            var singleVertexSplit = ts[i].split(" ");
+                            for (var j = 1; j < singleVertexSplit.length; j++){
+                                var indexSplit = singleVertexSplit[j].split('/');
+                                indexBuffer.push(parseInt(indexSplit[0]) - 1);
+                                //console.log(indexSplit);
+                            }
+                            
+                        }
+                }
+                console.log(textToArray); 
             }
         }
     }
