@@ -11,18 +11,19 @@ Model.prototype.readModelFromSrc = function (src){
     
     rawFile.onreadystatechange = function ()
     {
-        if(rawFile.readyState === 4) // readyState = 4: request finished and response is ready
+        if(rawFile.readyState === 4) 
         {
             
-            if(rawFile.status === 200 || rawFile.status === 0) // status 200: "OK"
+            if(rawFile.status === 200 || rawFile.status === 0) 
             {
                 
-                var allText = rawFile.responseText; //  Returns the response data as a string
-                console.log(allText); // display text on the console
+                var allText = rawFile.responseText; 
+                var textArray = allText.split(/\n|\rn|\nr|\r/);
+                console.log(textArray); 
             }
         }
     }
-    rawFile.send(); //Sends the request to the server Used for GET requests with param null
+    rawFile.send();
 }
 
 
