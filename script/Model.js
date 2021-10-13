@@ -19,7 +19,7 @@ Model.prototype.readModelFromSrc = function (src){
                 
                 var allText = rawFile.responseText; 
                 var textToArray = allText.split(/\n|\rn|\nr|\r/);
-                
+                console.log(this);
                 for(var i = 0; i < textToArray.length;i++){
                     var singleVertexSplit = textToArray[i].split(" ");
                     if (singleVertexSplit[0] == "vt")
@@ -51,7 +51,7 @@ Model.prototype.readModelFromSrc = function (src){
                 
             }
         }
-    }
+    }.bind(this);
     rawFile.send(); 
 }
 
