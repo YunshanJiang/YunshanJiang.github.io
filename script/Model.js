@@ -20,14 +20,14 @@ Model.prototype.readModelFromSrc = function (src){
                 var allText = rawFile.responseText; 
                 var textToArray = allText.split(/\n|\rn|\nr|\r/);
                 for(var i = 0; i < textToArray.length;i++){
-                    if (ts[i][0] == "v")
+                    if (textToArray[i][0] == "v")
                         {
                             var singleVertexSplit = textToArray[i].split(" ");
                             var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,0);
                             console.log(verties);
                             verties.push(tempVertex);
                         }
-                    else if (ts[i][0] == "f")
+                    else if (textToArray[i][0] == "f")
                         {
                             var singleVertexSplit = ts[i].split(" ");
                             for (var j = 1; j < singleVertexSplit.length; j++){
