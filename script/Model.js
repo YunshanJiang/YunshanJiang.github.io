@@ -29,7 +29,7 @@ Model.prototype.readModelFromSrc = function (src){
                         }
                     else if (textToArray[i][0] == "f")
                         {
-                            var singleVertexSplit = ts[i].split(" ");
+                            var singleVertexSplit = textToArray[i].split(" ");
                             for (var j = 1; j < singleVertexSplit.length; j++){
                                 var indexSplit = singleVertexSplit[j].split('/');
                                 indexBuffer.push(parseInt(indexSplit[0]) - 1);
