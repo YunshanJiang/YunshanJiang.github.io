@@ -33,7 +33,7 @@ Model.prototype.readModelFromSrc = function (src){
                     else if (singleVertexSplit[0] == "v")
                         {
                             
-                            var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,0);
+                            var tempVertex = new Vertex(parseFloat(singleVertexSplit[1]), parseFloat(singleVertexSplit[2]), parseFloat(singleVertexSplit[3]), 0,0,255);
                             console.log(this.verties);
                             this.verties.push(tempVertex);
                         }
