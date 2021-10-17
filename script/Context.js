@@ -50,9 +50,9 @@ var Context = function Context(){
       for (var i = 0; i < steps; i++)
           {
               var startBufferIndex = Math.round(startY) * viewport.canvasWidth * 4;
-              renderTargetView[startBufferIndex + Math.round(startX) * 4] = 255;
-             renderTargetView[startBufferIndex + Math.round(startX) * 4 + 1] = 255;
-             renderTargetView[startBufferIndex + Math.round(startX) * 4 + 2] = 0;
+              renderTargetView[startBufferIndex + Math.round(startX) * 4] = 212;
+             renderTargetView[startBufferIndex + Math.round(startX) * 4 + 1] = 175;
+             renderTargetView[startBufferIndex + Math.round(startX) * 4 + 2] = 55;
              renderTargetView[startBufferIndex + Math.round(startX) * 4 + 3] = 255;
               startX = startX + dx;
               startY = startY + dy;
