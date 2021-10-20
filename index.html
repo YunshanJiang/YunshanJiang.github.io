@@ -107,12 +107,12 @@
          // model.rotate(rotationVector);
          // console.log(constantBuffer.localOrigin);
          
-          for (var i = 0; i < indexBuffer.length; i++)
+          for (var i = 0; i < model.indexBuffer.length; i++)
               {
-                  var index = indexBuffer[i];
+                  var index = model.indexBuffer[i];
                   
                   
-                  var vertexOut = vertexSahder.vert(verties[index]);
+                  var vertexOut = vertexSahder.vert(model.verties[index]);
                   
                   
                   outputVerties[i] = vertexOut;
