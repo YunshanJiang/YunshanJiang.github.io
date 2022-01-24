@@ -10,13 +10,13 @@
   <body>
     <div id="app" :class = "{'app':true}">
   <p>{{ message }}</p>
-  <canvas id="canvas" :width="canvasWidth" :height="canvasHeight" :class = "{'canvas':true}"></canvas>
+  <canvas id="canvas" :width="canvasWidth" :height="canvasHeight"  :class = "{'canvas':true}" ></canvas>
 
 <div id="file-content"></div>
 </div>
 
   </body>
-     <script src="script/Device.js"> console.log(1);</script>
+     <script src="script/Device.js"></script>
     <script src="script/SwapChain.js"></script>
     <script src="script/Math.js"></script>
     <script src="script/Camera.js"></script>
@@ -35,7 +35,7 @@
    
     
   <script>
-      
+      document.getElementById("canvas").style.left = window.innerWidth/2 - vue._data.canvasWidth/2 + "px";
       var camera = new Camera(vue._data.canvasWidth/ vue._data.canvasHeight);  
       var model = new Model();
       model.readModelFromSrc("src/low-poly-fox-by-pixelmannen.obj");
@@ -100,6 +100,7 @@
       var rotationRadian = 0;
      //  constantBuffer.localOrigin = translationMatrix(new Vector3(0, 1, 0)).timeVector3OutV3(constantBuffer.localOrigin);
       var rotationVector = new Vector3(0,0.009,0);
+      
       setInterval(function(){
          deviceContext.clear();  
           

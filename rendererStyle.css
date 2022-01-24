@@ -1,8 +1,12 @@
 .app{
 margin: 0 auto;
-width:512px;
+
+
 }
 
 .canvas{
-  border:1px solid #000000;
+  border:0px solid #000000;
+  position:relative; 
+  
+  
 }

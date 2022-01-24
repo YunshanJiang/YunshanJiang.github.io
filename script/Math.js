@@ -320,5 +320,5 @@ function lerpVector3(vector1, vector2, value){
 }
 
 
-Math.width = 512;
-Math.height = 384;
+Math.width = 1024;
+Math.height = 768;
